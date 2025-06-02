@@ -18,7 +18,7 @@ def check_klimaat_requests(url):
         span = soup.select_one('div.rz-recipe-infoblock span')
         if span:
             text = span.get_text(strip=True).lower()
-            if "deze maand niet klimaatvriendelijk" or "geen klimaatvriendelijke keuze" in text:
+            if "deze maand niet klimaatvriendelijk" in text or "geen klimaatvriendelijke keuze" in text:
                 return "no"
             return "yes"
         return "unknown"
