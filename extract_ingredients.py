@@ -9,10 +9,11 @@ Outputs: cleaned_ingredients.csv
 """
 
 # Load CSV file
-if os.file.ispath("./voedingscentrum_recipes_klimaat.csv"):
+if os.path.isfile("./voedingscentrum_recipes_klimaat.csv"):
     df = pd.read_csv("voedingscentrum_recipes_klimaat.csv")
 else:
     df = pd.read_csv("voedingscentrum_recipes.csv")
+
 
 # If key is in the ingredient, use the value (so sunflower oil, olive oil, etc are all oil)
 synonyms = {
