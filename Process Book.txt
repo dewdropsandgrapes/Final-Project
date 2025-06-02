@@ -15,7 +15,7 @@ Also, check if word is in ingredient, replace with more general word. So, all co
 
 Log 7: Same as before.
 
-Log 8: Separate file to check for klimaatvriendelijk. This is indicated with a phrase. Add another column to say yes or no.
+Log 8: Separate file to check for klimaatvriendelijk. This is indicated with a phrase. Add another column to say yes or no. Learned that I am not the only one who finds GitHub unintuitive. Struggle a lot with working on the files and tracking changes.
 
 Log 9: Improve clean ingredients. Also remove text in parenthesis, and fractions.  Replace the ingredients with the new.
 
