@@ -1,0 +1,28 @@
+Process Book:
+Log 1: Began the webscraping process. Noticed that recipe info could not be accessed using Beautiful Soup's requests. Learned that it might be because it uses Java to dynamically load (parts of) the web page. Learned that with Selenium, you can load the Java content. Implemented scrolling using Selenium to load all recipes.
+
+Log 2: Refined the loading, adjusted the times for samples (Learned that I should not not load all of them now, I am still writing the rest of the code, it will take too much time so just load 5 recipes).
+
+Log 3: Get from the recipe page title, ingredients, and category. Added tracking for a vegetarian recipe. This is indicated with a logo, so I searched for an image. If the image is on the page, save the recipe, otherwise do not. It is unnecessary to spend time loading recipes with meat, they will never be selected for anyway.
+
+Log 4: Extracted data for nutrient info. It is always a puzzle to see where to get it within the HTML structure. I cleaned the numbers. Encountered an issue with ingredients in the csv file, since they are comma seperated, so I added "QUOTE_ALL" to fix this.
+
+Log 5: Also cleaned the numbers in ingredients to replace ,'s with .'s (also for the purpose of csv files). Added comments to file to make it easier to read.
+
+Log 6: Separate file to clean ingredients for purpose of later ingredient matching, etc, so delete numbers and words like "stukje" "halve" "eetlepel", "theelepel" etc.
+
+Also, check if word is in ingredient, replace with more general word. So, all cooking oils are just oil, all types of butter are just butter.
+
+Log 7: Same as before.
+
+Log 8: Separate file to check for klimaatvriendelijk. This is indicated with a phrase. Add another column to say yes or no.
+
+Log 9: Improve clean ingredients. Also remove text in parenthesis, and fractions.  Replace the ingredients with the new.
+
+Log 10: Separate file to generate menu. Do not put everything you want yet, you have time for that later not now. Find a menu with not too many recipes, max of 3 recipes per group, and for a test, only approve if fiber count is > 30. I wanted to do this with SQL since we just learned it, and because it would be fun to apply it. However, when trying to make advanced queries I learned that this is much easier to do in Python. Use print(df.to_string()) for prettier output (thought of saving in a csv, but deemed it not necessary).
+
+Log 11: Klimaatvriendelijk is also indicated with another phrase, so added this one too. Found that many recipes who were not, still had "yes" in the csv, that's why I investigated.
+
+Log 12: Wrote an input loop for klimaatvriendelijk. 
+
+Log 13: Refined comments, refined input loop and loading the right csv (in case you didnt run for klimaatvriendelijk). Save the ingredients in a seperate csv (do not override).
