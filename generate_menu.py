@@ -22,7 +22,7 @@ while True:
         break
 
 # Load CSV file. Filter on y if desired
-if os.file.ispath("./voedingscentrum_recipes_klimaat.csv") and klimaatvriendelijk_yn == "yes":
+if os.path.isfile("./voedingscentrum_recipes_klimaat.csv") and klimaatvriendelijk_yn == "yes":
     df = pd.read_csv("voedingscentrum_recipes_klimaat.csv")
     df = df[df["klimaatvriendelijk"] == klimaatvriendelijk_yn]
 else:
@@ -35,12 +35,13 @@ def pick_7_recipes_max_3_unique(df_category):
     Picks 7 recipes from the given category from the DataFrame,
     such that there are at most 3 unique titles (eg. AABBCCC)
     """
-    for _ in range(1000):  # Try 1000 times
-        sampled = df_category.sample(n=7, replace=True)  # Allow duplicates
-        title_counts = Counter(sampled["title"])
-        if len(title_counts) <= 3:
+    if df_category.empty:
+        return None
+    for _ in range(1000):
+        sampled = df_category.sample(n=7, replace=True)
+        if len(Counter(sampled["title"])) <= 3:
             return sampled
-    return None  # Fail if no such combination is found
+    return None # Fail if no such combination is found
 
 # ------- Generate a full menu that meets all constraints
 
@@ -68,7 +69,7 @@ for attempt in range(1000):
 
     if total_vezels >= 200 and total_protein >= 200:
         print("Found menu!")
-        print(full_menu[["title", "category", "vezels_num", "eiwit"]].to_string(index=False))
+        print(full_menu[["title", "category", "vezels", "eiwit"]].to_string(index=False))
         print(f"\nTotal vezels: {total_vezels:.1f} g")
         print(f"Total eiwitten: {total_protein:.1f} g")
         break
