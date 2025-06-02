@@ -1,9 +1,10 @@
 import pandas as pd
 import random
 from collections import Counter
+import os.path
 
 """
-Run fifth, generate menu
+Run fourth, generate menu
 """
 
 # ------------------------- Load and prepare the data
@@ -20,10 +21,12 @@ while True:
         klimaatvriendelijk_yn = "no"
         break
 
-df = pd.read_csv("voedingscentrum_recipes_klimaat.csv")
-
-if klimaatvriendelijk_yn == "yes"
+# Load CSV file. Filter on y if desired
+if os.file.ispath("./voedingscentrum_recipes_klimaat.csv") and klimaatvriendelijk_yn == "yes":
+    df = pd.read_csv("voedingscentrum_recipes_klimaat.csv")
     df = df[df["klimaatvriendelijk"] == klimaatvriendelijk_yn]
+else:
+    df = pd.read_csv("voedingscentrum_recipes.csv")
 
 # ----------------- Pick 7 recipes with max 3 unique titles
 
@@ -39,7 +42,7 @@ def pick_7_recipes_max_3_unique(df_category):
             return sampled
     return None  # Fail if no such combination is found
 
-# Generate a full menu that meets all constraints
+# ------- Generate a full menu that meets all constraints
 
 for attempt in range(1000):
     # Filter data by category
@@ -59,8 +62,8 @@ for attempt in range(1000):
     # Combine all 21 recipes
     full_menu = pd.concat([ontbijt, lunch, hoofdgerecht])
 
-    # Check total vezels across all recipes
-    total_vezels = full_menu["vezels_num"].sum()
+    # Check total nutrients across all recipes
+    total_vezels = full_menu["vezels"].sum()
     total_protein = full_menu["eiwit"].sum()
 
     if total_vezels >= 200 and total_protein >= 200:

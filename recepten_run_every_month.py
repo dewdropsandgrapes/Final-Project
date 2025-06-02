@@ -51,4 +51,4 @@ df.loc[:, "klimaatvriendelijk"] = klimaat_list
 
 # Save to new CSV
 df.to_csv("voedingscentrum_recipes_klimaat.csv", index=False, encoding='utf-8-sig', quoting=1)  # quoting=1 = QUOTE_ALL
-print("Saved to voedingscentrum_recipes_klimaat.csv")you
+print("Saved to voedingscentrum_recipes_klimaat.csv")

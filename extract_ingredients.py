@@ -1,6 +1,7 @@
 import pandas as pd
 import re
 from collections import Counter
+import os.path
 
 """
 Run third
@@ -8,9 +9,12 @@ Outputs: cleaned_ingredients.csv
 """
 
 # Load CSV file
-df = pd.read_csv("voedingscentrum_recipes_klimaat.csv")
+if os.file.ispath("./voedingscentrum_recipes_klimaat.csv"):
+    df = pd.read_csv("voedingscentrum_recipes_klimaat.csv")
+else:
+    df = pd.read_csv("voedingscentrum_recipes.csv")
 
-# Synonym rules: if key is in the ingredient, use the value
+# If key is in the ingredient, use the value (so sunflower oil, olive oil, etc are all oil)
 synonyms = {
     'olie': 'olie',
     'yoghurt': 'yoghurt',
@@ -24,7 +28,7 @@ synonyms = {
     'kaas': 'kaas',
     }
 
-def normalize_ingredient(name):
+def generalize_ingredient(name):
     for key, value in synonyms.items():
         if key in name:
             return value
@@ -35,16 +39,16 @@ def extract_ingredient_names(ingredient_string):
     simplified = []
 
     for entry in entries:
+        entry = entry.lower()
         entry = re.sub(r'\d+[.,]?\d*\s*(gram|ml|stukje|kneepje|stukjes|eetlepel|eetlepels|theelepel|theelepels|stukken?|snufje|teentje|teentjes|middelgrote|takjes|plakken?|bosjes?|blaadjes?|personen?)\s*', '', entry, flags=re.IGNORECASE)
         entry = re.sub(r'\b\d+[.,]?\d*\b', '', entry)
         entry = re.sub(r'\(.*?\)', '', entry)
-        entry = entry.strip().lower()
         entry = re.sub(r"^\s*('s|'n|'t|de|het|een)\s+", '', entry)
         entry = re.sub(r'[¼½¾⅓⅔⅛⅜⅝⅞+§©®™†‡]', '', entry)
         entry = entry.strip(" ,.;:-")
 
         if entry:
-            simplified.append(normalize_ingredient(entry))
+            simplified.append(generalize_ingredient(entry))
 
     return simplified
 
@@ -79,6 +83,8 @@ for col in columns_to_clean:
     if col in df.columns:
         df[col] = df[col].apply(extract_numeric_value)
 
+output_df = df[['title', 'url', 'ingredients']]
+
 # Overwrite the original CSV file with updated data
-df.to_csv("voedingscentrum_recipes_klimaat.csv", index=False, encoding='utf-8-sig', quoting=1)
-print("Updated voedingscentrum_recipes_klimaat.csv.")
+output_df.to_csv("grocery_ingredients.csv", index=False, encoding='utf-8-sig', quoting=1)
+print("Saved to grocery_ingredients.csv.")
